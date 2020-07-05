@@ -9,7 +9,6 @@ export const AuthMiddleware = async (req:Request, res: Response, next: NextFunct
 
             
         const cookies = req.cookies;
-        console.log(cookies.Authorization);
         
 
         if(!cookies.Authorization){

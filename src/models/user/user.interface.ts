@@ -1,3 +1,4 @@
+import Service from "../service/service.interface";
 
 interface User {
     _id: String,
@@ -7,6 +8,7 @@ interface User {
     password: string;
     rg: string;
     CPF: number;
+    historic: Service[] | string[];
 }
   
 export default User;

@@ -8,7 +8,12 @@ const userSchema = new mongoose.Schema({
     email: String,
     password: String,
     rg: String,
-    CPF: Number
+    CPF: Number,
+    historic: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Service',
+        require: false
+    }]
 });
 
 const userModel = mongoose.model<User & mongoose.Document>('User', userSchema);

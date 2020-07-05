@@ -28,6 +28,8 @@ export  default class UserController {
         // this.router.put(`${this.path}/update/:id`, validationMiddleware(CreateUserDto), this.update);
         this.router.post(`${this.path}/login`, validationMiddleware(LoginUserDto), this.login);
         this.router.get(`${this.path}/logout`, AuthMiddleware, this.logout);
+        this.router.get(`${this.path}/historic/:id`, AuthMiddleware, this.historic);
+
         
     }
     
@@ -83,7 +85,7 @@ export  default class UserController {
             logger.info(`Usuario ${user} successfully logged in`);
             const tokenData = this.generateToken(user);
             res.setHeader('Set-Cookie', [`Authorization=Bearer ${tokenData.token}; HttpOnly; Max-Age=${tokenData.expiresIn}`]);
-            res.status(200).send(user)
+            res.status(200).send(user);
                 
         }else{
             return next(new HttpException(401, 'email and password must be provided'));
@@ -95,6 +97,28 @@ export  default class UserController {
         res.setHeader('Set-Cookie', ['Authorization=;Max-age=0']);
         logger.info(`Usuario successfully logged out`);
         return res.json({message: 'success'});
+    }
+
+    historic = async (req: Request, res: Response, next: NextFunction) => {
+        
+        const id = req.params.id;
+        console.log(id);
+        
+        if(id){
+        
+            const user = await userModel.findOne({uuid: id}).populate('historic');
+            
+            if(!user)
+                return next(new HttpException(401, 'user not found'));
+
+
+            logger.info(`user ${user} found`);
+            res.status(200).send(user);
+                
+        }else{
+            return next(new HttpException(401, 'id is necessary to delete the service'));
+        }
+
     }
 
     private generateToken = (user: User): TokenData => {

@@ -8,6 +8,8 @@ import { errors } from 'celebrate';
 import UserController from './controllers/UserController';
 import errorMiddleware from './middlewares/error';
 import logger from './utils/logger';
+import ServiceController from './controllers/ServiceController';
+import AddressController from './controllers/AdressController';
 
 
 export default class App{
@@ -15,7 +17,9 @@ export default class App{
     public app: Application;
 
     public controllers = [
-        new UserController
+        new UserController,
+        new ServiceController,
+        new AddressController
     ]
 
     constructor() {        

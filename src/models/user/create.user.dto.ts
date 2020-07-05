@@ -1,5 +1,4 @@
 import { IsString, IsUUID, IsEmail, IsNumber } from 'class-validator';
-import { string } from '@hapi/joi';
 
 export default class CreateUserDto {
  
