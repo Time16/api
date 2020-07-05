@@ -4,6 +4,7 @@ import { JWT_SECRET } from "../utils/utils";
 import { DataStoredInToken } from "../models/authentication/auth";
 import userModel from "../models/user/user.schema";
 import logger from "../utils/logger";
+import HttpException from "../utils/httpException";
 
 export const AuthMiddleware = async (req:Request, res: Response, next: NextFunction) => {
 
@@ -31,7 +32,12 @@ export const AuthMiddleware = async (req:Request, res: Response, next: NextFunct
             return res.status(401).send({error: 'Token malformated'});
         }
 
-        const verificationResponse = jwt.verify(second, JWT_SECRET) as DataStoredInToken;
+        let verificationResponse:DataStoredInToken = undefined;
+        jwt.verify(second, JWT_SECRET, function (err: any, decode: any) {
+            if(err)
+                return next(new HttpException(400, `Token Expired, Log in again to continue`));  
+            verificationResponse = decode as DataStoredInToken; 
+        });        
         
         const user = await userModel.findOne({uuid: verificationResponse._uuid});
 

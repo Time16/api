@@ -10,6 +10,7 @@ import errorMiddleware from './middlewares/error';
 import logger from './utils/logger';
 import ServiceController from './controllers/ServiceController';
 import AddressController from './controllers/AdressController';
+import error404Middleware from './middlewares/error404';
 
 
 export default class App{
@@ -38,6 +39,7 @@ export default class App{
 
     private errorHandlingMiddleware(){
         this.app.use(errorMiddleware);
+        this.app.use(error404Middleware)
     }
 
     private initializeControllers(){

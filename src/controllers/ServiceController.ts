@@ -29,13 +29,9 @@ export  default class ServiceController {
         this.router.delete(`${this.path}/delete/:id`, AuthMiddleware, this.delete);
         this.router.get(`${this.path}/findOne/:id`, AuthMiddleware, this.findOne);
         this.router.get(`${this.path}/findAll`, AuthMiddleware, this.findAll);
-        this.router.get(`${this.path}/teste`, AuthMiddleware, this.test);
         this.router.post(`${this.path}/assignService`, AuthMiddleware, validationMiddleware(AssignServiceDto), this.assign);
     }
     
-    test = (req: Request, res: Response, next: NextFunction) => {
-        return res.json({message: 'success'});
-    }
 
     create = async (req: Request, res: Response, next: NextFunction) => {
 

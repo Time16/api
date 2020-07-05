@@ -2,9 +2,6 @@ import { IsString, IsUUID, IsEmail, IsNumber } from 'class-validator';
 
 export default class CreateUserDto {
  
-  @IsUUID(4)
-  public uuid: string;
-
   @IsString()
   public name: string;
 
