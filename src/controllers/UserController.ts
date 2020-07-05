@@ -27,8 +27,8 @@ export  default class UserController {
         this.router.post(`${this.path}/register`, validationMiddleware(CreateUserDto), this.register);
         // this.router.put(`${this.path}/update/:id`, validationMiddleware(CreateUserDto), this.update);
         this.router.post(`${this.path}/login`, validationMiddleware(LoginUserDto), this.login);
-        this.router.get(`${this.path}/logout`, AuthMiddleware, this.logout);
-        this.router.get(`${this.path}/historic/:id`, AuthMiddleware, this.historic);
+        this.router.get(`${this.path}/logout`, this.logout);
+        this.router.get(`${this.path}/historic/:id`, this.historic);
 
         
     }

@@ -25,11 +25,11 @@ export  default class ServiceController {
 
     private initializeRoutes(){
 
-        this.router.post(`${this.path}/create`, AuthMiddleware, validationMiddleware(CreateServiceDto), this.create);
-        this.router.delete(`${this.path}/delete/:id`, AuthMiddleware, this.delete);
-        this.router.get(`${this.path}/findOne/:id`, AuthMiddleware, this.findOne);
-        this.router.get(`${this.path}/findAll`, AuthMiddleware, this.findAll);
-        this.router.post(`${this.path}/assignService`, AuthMiddleware, validationMiddleware(AssignServiceDto), this.assign);
+        this.router.post(`${this.path}/create`, validationMiddleware(CreateServiceDto), this.create);
+        this.router.delete(`${this.path}/delete/:id`, this.delete);
+        this.router.get(`${this.path}/findOne/:id`, this.findOne);
+        this.router.get(`${this.path}/findAll`, this.findAll);
+        this.router.post(`${this.path}/assignService`, validationMiddleware(AssignServiceDto), this.assign);
     }
     
 

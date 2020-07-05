@@ -19,7 +19,7 @@ export  default class AddressController {
     }
 
     private initializeRoutes(){
-        this.router.post(`${this.path}/create`, AuthMiddleware, validationMiddleware(CreateAdressDto), this.create);
+        this.router.post(`${this.path}/create`, validationMiddleware(CreateAdressDto), this.create);
 
         
     }
