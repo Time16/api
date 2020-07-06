@@ -85,7 +85,7 @@ export  default class UserController {
             logger.info(`Usuario ${user} successfully logged in`);
             const tokenData = this.generateToken(user);
             res.setHeader('Set-Cookie', [`Authorization=Bearer ${tokenData.token}; HttpOnly; Max-Age=${tokenData.expiresIn}`]);
-            res.status(200).send(user);
+            res.status(200).send({user: user, token: `Authorization=Bearer ${tokenData.token}; HttpOnly; Max-Age=${tokenData.expiresIn}`});
                 
         }else{
             return next(new HttpException(401, 'email and password must be provided'));

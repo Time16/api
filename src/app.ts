@@ -3,7 +3,7 @@ import express, { response, Application } from 'express';
 import path from 'path';
 // import routes from './routes';
 const mongoose = require("mongoose");
-import cors from 'cors';
+import cors, { CorsOptions } from 'cors';
 import { errors } from 'celebrate';
 import UserController from './controllers/UserController';
 import errorMiddleware from './middlewares/error';
@@ -34,7 +34,13 @@ export default class App{
     private initializeMiddlewares(){
         this.app.use(express.json());
         this.app.use(cookieParser());
-        this.app.use(cors());
+        const corsOptions = {
+            exposedHeaders: ['Authorization', 'Cookie', 'Set-Cookie'],
+            allowedHeaders: ['Content-Type', 'Authorization', 'Cookie', 'Set-Cookie'],
+            credentials: true,
+
+          };
+        this.app.use(cors(corsOptions));
     }
 
     private errorHandlingMiddleware(){
